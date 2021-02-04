@@ -107,7 +107,7 @@
 #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD)
 #include <OpenGL/gl3.h>          // Needs to be initialized with gladLoadGL() in user's code.
 #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLAD2)
-#include <glad/gl.h>            // Needs to be initialized with gladLoadGL(...) or gladLoaderLoadGL() in user's code.
+#include <OpenGL/gl3.h>            // Needs to be initialized with gladLoadGL(...) or gladLoaderLoadGL() in user's code.
 #elif defined(IMGUI_IMPL_OPENGL_LOADER_GLBINDING2)
 #ifndef GLFW_INCLUDE_NONE
 #define GLFW_INCLUDE_NONE       // GLFW including OpenGL headers causes ambiguity or multiple definition errors.
