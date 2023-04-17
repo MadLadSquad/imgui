@@ -12,7 +12,9 @@ on:
     - cron: "0 11 * * *"
     - cron: "0 17 * * *"
     - cron: "0 23 * * *"
-
+  push:
+    branches: [ docking ]
+    
 jobs:
   Update-Fork:
     runs-on: ubuntu-latest
