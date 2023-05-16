@@ -12888,6 +12888,8 @@ bool ImGui::BeginDragDropSource(ImGuiDragDropFlags flags)
 
     if (source_drag_active)
     {
+        SetMouseCursor(ImGuiMouseCursor_ResizeAll);
+
         if (!g.DragDropActive)
         {
             IM_ASSERT(source_id != 0);
