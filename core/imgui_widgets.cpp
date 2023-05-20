@@ -599,7 +599,7 @@ bool ImGui::ButtonBehavior(const ImRect& bb, ImGuiID id, bool* out_hovered, bool
             g.NavDisableHighlight = true;
     }
 
-    if (IsItemHovered())
+    if (g.IO.ConfigUseDefaultMouseCursors && IsItemHovered())
         SetMouseCursor(cursor);
 
     // Gamepad/Keyboard navigation
@@ -2367,7 +2367,7 @@ bool ImGui::DragBehavior(ImGuiID id, ImGuiDataType data_type, void* p_v, float v
     if ((g.LastItemData.InFlags & ImGuiItemFlags_ReadOnly) || (flags & ImGuiSliderFlags_ReadOnly))
         return false;
 
-    if (IsItemHovered())
+    if (g.IO.ConfigUseDefaultMouseCursors && IsItemHovered())
         SetMouseCursor(ImGuiMouseCursor_ResizeEW);
 
     if (g.ActiveId == id)
@@ -2964,7 +2964,7 @@ bool ImGui::SliderBehavior(const ImRect& bb, ImGuiID id, ImGuiDataType data_type
     if ((g.LastItemData.InFlags & ImGuiItemFlags_ReadOnly) || (flags & ImGuiSliderFlags_ReadOnly))
         return false;
 
-    if (IsItemHovered())
+    if (g.IO.ConfigUseDefaultMouseCursors && IsItemHovered())
     {
         if ((g.LastItemData.InFlags & ImGuiSliderFlags_Vertical) || (flags & ImGuiSliderFlags_Vertical))
             SetMouseCursor(ImGuiMouseCursor_ResizeNS);
