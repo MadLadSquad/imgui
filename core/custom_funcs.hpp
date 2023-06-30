@@ -14,6 +14,18 @@ namespace ImGui
     // Modified ShowAboutWindow that uses void instead of bool for p_open
     IMGUI_API void          ShowAboutWindow(void* p_open = nullptr);
 
+    // Modified Checkbox that uses void instead of bool for v
+    IMGUI_API void          Checkbox(const char* name, void* v);
+
+    // Modified CollapsingHeader that uses void instead of bool for p_visible
+    IMGUI_API bool          CollapsingHeader(const char* label, void* p_visible, ImGuiTreeNodeFlags flags = 0);
+
+    // Modified Selectable that uses void instead of bool for p_selected
+    IMGUI_API bool          Selectable(const char* label, void* p_selected, ImGuiSelectableFlags flags = 0, const ImVec2& size = ImVec2(0, 0));
+
+    // Modified MenuItem that uses void instead of bool for p_selected
+    IMGUI_API bool          MenuItem(const char* label, const char* shortcut, void* p_selected, bool enabled = true);
+
     // Modified Begin that uses void instead of bool for p_open
     IMGUI_API bool          Begin(const char* name, void* p_open = nullptr, ImGuiWindowFlags flags = 0);
 

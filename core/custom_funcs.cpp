@@ -25,6 +25,26 @@ void ImGui::ShowAboutWindow(void* p_open)
     ShowAboutWindow((bool*)p_open);
 }
 
+void ImGui::Checkbox(const char* name, void* v)
+{
+    ImGui::Checkbox(name, (bool*)v);
+}
+
+bool ImGui::CollapsingHeader(const char* label, void* p_visible, ImGuiTreeNodeFlags flags)
+{
+    return ImGui::CollapsingHeader(label, (bool*)p_visible, flags);
+}
+
+bool ImGui::Selectable(const char* label, void* p_selected, ImGuiSelectableFlags flags, const ImVec2& size)
+{
+    return ImGui::Selectable(label, (bool*)p_selected, flags, size);
+}
+
+bool ImGui::MenuItem(const char* label, const char* shortcut, void* p_selected, bool enabled)
+{
+    return ImGui::MenuItem(label, shortcut, (bool*)p_selected, enabled);
+}
+
 bool ImGui::Begin(const char* name, void* p_open, ImGuiWindowFlags flags)
 {
     return Begin(name, (bool*)p_open, flags);
