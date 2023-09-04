@@ -1,4 +1,4 @@
-// dear imgui, v1.89.9 WIP
+// dear imgui, v1.89.9
 // (widgets code)
 
 /*
@@ -2926,6 +2926,10 @@ bool ImGui::SliderBehaviorT(const ImRect& bb, ImGuiID id, ImGuiDataType data_typ
                 g.SliderCurrentAccumDirty = false;
             }
         }
+
+        if (set_new_value)
+            if ((g.LastItemData.InFlags & ImGuiItemFlags_ReadOnly) || (flags & ImGuiSliderFlags_ReadOnly))
+                set_new_value = false;
 
         if (set_new_value)
         {
@@ -5925,6 +5929,7 @@ void ImGui::ColorEditOptionsPopup(const float* col, ImGuiColorEditFlags flags)
     if ((!allow_opt_inputs && !allow_opt_datatype) || !BeginPopup("context"))
         return;
     ImGuiContext& g = *GImGui;
+    g.LockMarkEdited++;
     ImGuiColorEditFlags opts = g.ColorEditOptions;
     if (allow_opt_inputs)
     {
@@ -5967,6 +5972,7 @@ void ImGui::ColorEditOptionsPopup(const float* col, ImGuiColorEditFlags flags)
 
     g.ColorEditOptions = opts;
     EndPopup();
+    g.LockMarkEdited--;
 }
 
 void ImGui::ColorPickerOptionsPopup(const float* ref_col, ImGuiColorEditFlags flags)
@@ -5976,6 +5982,7 @@ void ImGui::ColorPickerOptionsPopup(const float* ref_col, ImGuiColorEditFlags fl
     if ((!allow_opt_picker && !allow_opt_alpha_bar) || !BeginPopup("context"))
         return;
     ImGuiContext& g = *GImGui;
+    g.LockMarkEdited++;
     if (allow_opt_picker)
     {
         ImVec2 picker_size(g.FontSize * 8, ImMax(g.FontSize * 8 - (GetFrameHeight() + g.Style.ItemInnerSpacing.x), 1.0f)); // FIXME: Picker size copied from main picker function
@@ -6005,6 +6012,7 @@ void ImGui::ColorPickerOptionsPopup(const float* ref_col, ImGuiColorEditFlags fl
         CheckboxFlags("Alpha Bar", &g.ColorEditOptions, ImGuiColorEditFlags_AlphaBar);
     }
     EndPopup();
+    g.LockMarkEdited--;
 }
 
 //-------------------------------------------------------------------------
@@ -6608,7 +6616,8 @@ bool ImGui::Selectable(const char* label, bool selected, ImGuiSelectableFlags fl
         const ImU32 col = GetColorU32((held && hovered) ? ImGuiCol_HeaderActive : hovered ? ImGuiCol_HeaderHovered : ImGuiCol_Header);
         RenderFrame(bb.Min, bb.Max, col, false, 0.0f);
     }
-    RenderNavHighlight(bb, id, ImGuiNavHighlightFlags_TypeThin | ImGuiNavHighlightFlags_NoRounding);
+    if (g.NavId == id)
+        RenderNavHighlight(bb, id, ImGuiNavHighlightFlags_TypeThin | ImGuiNavHighlightFlags_NoRounding);
 
     if (span_all_columns && window->DC.CurrentColumns)
         PopColumnsBackground();
