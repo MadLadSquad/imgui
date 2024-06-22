@@ -15,9 +15,9 @@ void ImGui::ShowDebugLogWindow(void* p_open)
     ShowDebugLogWindow((bool*)p_open);
 }
 
-void ImGui::ShowStackToolWindow(void* p_open)
+void ImGui::ShowIDStackToolWindow(void* p_open)
 {
-    ShowStackToolWindow((bool*)p_open);
+    ShowIDStackToolWindow((bool*)p_open);
 }
 
 void ImGui::ShowAboutWindow(void* p_open)

@@ -9,8 +9,8 @@ namespace ImGui
     IMGUI_API void          ShowMetricsWindow(void* p_open);
     // Modified ShowDebugLogWindow that uses void instead of bool for p_open
     IMGUI_API void          ShowDebugLogWindow(void* p_open);
-    // Modified ShowStackToolWindow that uses void instead of bool for p_open
-    IMGUI_API void          ShowStackToolWindow(void* p_open);
+    // Modified ShowIDStackToolWindow that uses void instead of bool for p_open
+    IMGUI_API void          ShowIDStackToolWindow(void* p_open);
     // Modified ShowAboutWindow that uses void instead of bool for p_open
     IMGUI_API void          ShowAboutWindow(void* p_open);
 
