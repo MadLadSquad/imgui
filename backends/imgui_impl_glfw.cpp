@@ -627,15 +627,11 @@ static bool ImGui_ImplGlfw_Init(GLFWwindow* window, bool install_callbacks, Glfw
     platform_io.Platform_SetClipboardTextFn = [](ImGuiContext*, const char* text) { glfwSetClipboardString(NULL, text); };
     platform_io.Platform_GetClipboardTextFn = [](ImGuiContext*) { return glfwGetClipboardString(NULL); };
 #ifdef __EMSCRIPTEN__
-<<<<<<< HEAD
-    io.PlatformOpenInShellFn = [](ImGuiContext*, const char* url) { ImGui_ImplGlfw_EmscriptenOpenURL(url); return true; };
+    platform_io.Platform_OpenInShellFn = [](ImGuiContext*, const char* url) { ImGui_ImplGlfw_EmscriptenOpenURL(url); return true; };
     emscripten_browser_clipboard::paste([](std::string const& paste_data, void* callback_data [[maybe_unused]]) -> void
     {
         clipboardContent = std::move(paste_data);
     });
-=======
-    platform_io.Platform_OpenInShellFn = [](ImGuiContext*, const char* url) { ImGui_ImplGlfw_EmscriptenOpenURL(url); return true; };
->>>>>>> 8c4dceba08ce053ca431540bde43417432e1495e
 #endif
 
     // Create mouse cursors
