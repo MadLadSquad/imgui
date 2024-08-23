@@ -24,6 +24,10 @@
 // CHANGELOG
 // (minor and older changes stripped away, please see git history for details)
 //  2024-XX-XX: Platform: Added support for multiple windows via the ImGuiPlatformIO interface.
+//  2024-08-22: moved some OS/backend related function pointers from ImGuiIO to ImGuiPlatformIO:
+//               - io.GetClipboardTextFn    -> platform_io.Platform_GetClipboardTextFn
+//               - io.SetClipboardTextFn    -> platform_io.Platform_SetClipboardTextFn
+//               - io.PlatformOpenInShellFn -> platform_io.Platform_OpenInShellFn
 //  2024-07-31: Added ImGui_ImplGlfw_Sleep() helper function for usage by our examples app, since GLFW doesn't provide one.
 //  2024-07-08: *BREAKING* Renamed ImGui_ImplGlfw_InstallEmscriptenCanvasResizeCallback to ImGui_ImplGlfw_InstallEmscriptenCallbacks(), added GLFWWindow* parameter.
 //  2024-07-08: Emscripten: Added support for GLFW3 contrib port (GLFW 3.4.0 features + bug fixes): to enable, replace -sUSE_GLFW=3 with --use-port=contrib.glfw3 (requires emscripten 3.1.59+) (https://github.com/pongasoft/emscripten-glfw)
@@ -619,15 +623,19 @@ static bool ImGui_ImplGlfw_Init(GLFWwindow* window, bool install_callbacks, Glfw
     bd->Time = 0.0;
     bd->WantUpdateMonitors = true;
 
-    io.SetClipboardTextFn = ImGui_ImplGlfw_SetClipboardText;
-    io.GetClipboardTextFn = ImGui_ImplGlfw_GetClipboardText;
-    io.ClipboardUserData = bd->Window;
+    ImGuiPlatformIO& platform_io = ImGui::GetPlatformIO();
+    platform_io.Platform_SetClipboardTextFn = [](ImGuiContext*, const char* text) { glfwSetClipboardString(NULL, text); };
+    platform_io.Platform_GetClipboardTextFn = [](ImGuiContext*) { return glfwGetClipboardString(NULL); };
 #ifdef __EMSCRIPTEN__
+<<<<<<< HEAD
     io.PlatformOpenInShellFn = [](ImGuiContext*, const char* url) { ImGui_ImplGlfw_EmscriptenOpenURL(url); return true; };
     emscripten_browser_clipboard::paste([](std::string const& paste_data, void* callback_data [[maybe_unused]]) -> void
     {
         clipboardContent = std::move(paste_data);
     });
+=======
+    platform_io.Platform_OpenInShellFn = [](ImGuiContext*, const char* url) { ImGui_ImplGlfw_EmscriptenOpenURL(url); return true; };
+>>>>>>> 8c4dceba08ce053ca431540bde43417432e1495e
 #endif
 
     // Create mouse cursors
