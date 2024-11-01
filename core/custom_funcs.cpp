@@ -46,10 +46,10 @@ void createMSAAImage(VkPhysicalDevice physical_device, VkDevice device, ImGui_Im
             },
             .mipLevels = 1,
             .arrayLayers = 1,
-            .sharingMode = VK_SHARING_MODE_EXCLUSIVE,
-            .tiling = VK_IMAGE_TILING_OPTIMAL,
             .samples = wd->samples,
+            .tiling = VK_IMAGE_TILING_OPTIMAL,
             .usage = VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT | VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT,
+            .sharingMode = VK_SHARING_MODE_EXCLUSIVE,
             .initialLayout = VK_IMAGE_LAYOUT_UNDEFINED
         };
 
