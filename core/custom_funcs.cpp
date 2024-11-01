@@ -79,10 +79,13 @@ void createMSAAImage(VkPhysicalDevice physical_device, VkDevice device, ImGui_Im
             .image = wd->multisampledImage,
             .viewType = VK_IMAGE_VIEW_TYPE_2D,
             .format = wd->SurfaceFormat.format,
-            .components.r = VK_COMPONENT_SWIZZLE_R,
-            .components.g = VK_COMPONENT_SWIZZLE_G,
-            .components.b = VK_COMPONENT_SWIZZLE_B,
-            .components.a = VK_COMPONENT_SWIZZLE_A,
+            .components =
+            {
+                .r = VK_COMPONENT_SWIZZLE_R,
+                .g = VK_COMPONENT_SWIZZLE_G,
+                .b = VK_COMPONENT_SWIZZLE_B,
+                .a = VK_COMPONENT_SWIZZLE_A,
+            },
             .subresourceRange =
             {
                 .aspectMask = VK_IMAGE_ASPECT_COLOR_BIT,
