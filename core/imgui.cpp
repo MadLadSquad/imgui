@@ -16329,8 +16329,8 @@ void ImGui::WindowSyncOwnedViewport(ImGuiWindow* window, ImGuiWindow* parent_win
     // We can also tell the backend that clearing the platform window won't be necessary,
     // as our window background is filling the viewport and we have disabled BgAlpha.
     // FIXME: Work on support for per-viewport transparency (#2766)
-    if (!(window_flags & ImGuiWindowFlags_NoBackground))
-        viewport_flags |= ImGuiViewportFlags_NoRendererClear;
+    //if (!(window_flags & ImGuiWindowFlags_NoBackground))
+    //    viewport_flags |= ImGuiViewportFlags_NoRendererClear;
 
     window->Viewport->Flags = viewport_flags;
 
