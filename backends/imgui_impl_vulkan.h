@@ -163,7 +163,7 @@ struct ImGui_ImplVulkanH_Frame;
 struct ImGui_ImplVulkanH_Window;
 
 // Helpers
-IMGUI_IMPL_API void                 ImGui_ImplVulkanH_CreateOrResizeWindow(VkInstance instance, VkPhysicalDevice physical_device, VkDevice device, ImGui_ImplVulkanH_Window* wd, uint32_t queue_family, const VkAllocationCallbacks* allocator, int w, int h, uint32_t min_image_count);
+IMGUI_IMPL_API void                 ImGui_ImplVulkanH_CreateOrResizeWindow(VkInstance instance, VkPhysicalDevice physical_device, VkDevice device, ImGui_ImplVulkanH_Window* wd, uint32_t queue_family, const VkAllocationCallbacks* allocator, int w, int h, uint32_t min_image_count, VkSampleCountFlagBits samples);
 IMGUI_IMPL_API void                 ImGui_ImplVulkanH_DestroyWindow(VkInstance instance, VkDevice device, ImGui_ImplVulkanH_Window* wd, const VkAllocationCallbacks* allocator);
 IMGUI_IMPL_API VkSurfaceFormatKHR   ImGui_ImplVulkanH_SelectSurfaceFormat(VkPhysicalDevice physical_device, VkSurfaceKHR surface, const VkFormat* request_formats, int request_formats_count, VkColorSpaceKHR request_color_space);
 IMGUI_IMPL_API VkPresentModeKHR     ImGui_ImplVulkanH_SelectPresentMode(VkPhysicalDevice physical_device, VkSurfaceKHR surface, const VkPresentModeKHR* request_modes, int request_modes_count);
@@ -211,11 +211,22 @@ struct ImGui_ImplVulkanH_Window
     ImVector<ImGui_ImplVulkanH_Frame>           Frames;
     ImVector<ImGui_ImplVulkanH_FrameSemaphores> FrameSemaphores;
 
+    // MadLadSquad patch
+    VkImage multisampledImage;
+    VkImageView multisampledImageView;
+    VkDeviceMemory multisampledImageMemory;
+    VkSampleCountFlagBits samples;
+
     ImGui_ImplVulkanH_Window()
     {
         memset((void*)this, 0, sizeof(*this));
         PresentMode = (VkPresentModeKHR)~0;     // Ensure we get an error if user doesn't set this.
         ClearEnable = true;
+
+        multisampledImage = VK_NULL_HANDLE;
+        multisampledImageView = VK_NULL_HANDLE;
+        multisampledImageMemory = VK_NULL_HANDLE;
+        samples = VK_SAMPLE_COUNT_1_BIT;
     }
 };
 
