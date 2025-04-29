@@ -8,7 +8,7 @@ env:
   
 on:
   push:
-    branches: [ master ]
+    branches: [ docking ]
   schedule:
     - cron: "0 0 * * *"
     - cron: "0 6 * * *"
@@ -22,7 +22,7 @@ jobs:
       - name: checking out code
         uses: actions/checkout@v3
         with:
-          ref: master
+          ref: docking
           token: ${{ secrets.GITHUB_TOKEN }}
           lfs: true
           submodules: true
