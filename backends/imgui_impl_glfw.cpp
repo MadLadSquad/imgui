@@ -1349,6 +1349,7 @@ static void ImGui_ImplGlfw_WindowSizeCallback(GLFWwindow* window, int, int)
 static void ImGui_ImplGlfw_SetWindowFloating(ImGui_ImplGlfw_Data* bd, GLFWwindow* window)
 {
 #ifdef GLFW_EXPOSE_NATIVE_X11
+/* This is a genuine risk for our users so we're disabling it in our fork
     if (glfwGetPlatform() == GLFW_PLATFORM_X11)
     {
         Display* display = glfwGetX11Display();
@@ -1361,6 +1362,7 @@ static void ImGui_ImplGlfw_SetWindowFloating(ImGui_ImplGlfw_Data* bd, GLFWwindow
         bd->XChangeWindowAttributes(display, xwindow, CWOverrideRedirect, &attrs);
         bd->XFlush(display);
     }
+*/
 #endif // GLFW_EXPOSE_NATIVE_X11
 #ifdef GLFW_EXPOSE_NATIVE_WAYLAND
     // FIXME: Help needed, see #8884, #8474 for discussions about this.
